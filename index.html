@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#111">
-<title>Ika & Jaka Wedding Test Invitation</title>
+<title> The Wedding of Ika & Jaka</title>
 
-<meta property="og:image" content="https://ikajakaweddingtestinv.netlify.app/preview.jpg">
+<meta property="og:image" content="https://ika-jaka.netlify.app/preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
 
-<meta property="og:title" content="Ika & Jaka Wedding Test Invitation">
+<meta property="og:title" content="The Wedding of Ika & Jaka">
 <meta property="og:description" content="Rabu, 23 September 2026">
 
 <style>
@@ -20,6 +20,11 @@
   src:url("./fonts/GreatVibes-Regular.ttf") format("truetype");
   font-display:swap
 }
+ @font-face {
+    font-family: 'MoonTimeLocal';
+    src: url('MoonTimeRegular.otf') format('opentype');
+    font-display: swap;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -27,7 +32,7 @@
   --bg:#111;
   --bg2:#171717;
   --text:#f5f0e8;
-  --muted:#aaa49b;
+  --muted:#f5f0e8;
   --gold:#c7a15b;
   --gold2:#dec17d
 }
@@ -65,6 +70,79 @@ button{
   cursor:pointer
 }
 
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: 2.2s ease;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: 2.2s ease;
+}
+
+.reveal-zoomin{
+  opacity: 0;
+  transform: scale(0.2);
+  transition: 3.5s ease;
+}
+
+.reveal-zoomout{
+  opacity: 0;
+  transform: scale(2.2);
+  transition: 3.5s ease;
+}
+/* =========================
+   STAGGER SCROLL
+   TIDAK MENGGANGGU REVEAL LAMA
+========================= */
+
+.stagger > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout) {
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 2.2s ease,
+    transform 2.2s ease;
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout):nth-child(1) {
+  transition-delay: 0s;
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout):nth-child(2) {
+  transition-delay: 0.5s;
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout):nth-child(3) {
+  transition-delay: 1s;
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout):nth-child(4) {
+  transition-delay: 1.5s;
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout):nth-child(5) {
+  transition-delay: 2s;
+}
+
+.stagger.show > *:not(.reveal-left):not(.reveal-right):not(.reveal-zoomin):not(.reveal-zoomout):nth-child(6) {
+  transition-delay: 2.5s;
+}
+  
+.reveal-left.show,
+.reveal-right.show,
+.reveal-zoomin.show,
+.reveal-zoomout.show,
+.stagger.show{
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
 
 /* =========================
    COVER
@@ -88,31 +166,29 @@ button{
   pointer-events:none
 }
 
-.cover-photo{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.58),
-      rgba(0,0,0,.30) 42%,
-      rgba(0,0,0,.76)
-    ),
-    url("cover.jpg") center/cover no-repeat
+.cover-photo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.58),
+    rgba(0,0,0,.30) 42%,
+    rgba(0,0,0,.76)
+  ),
+  url("cover.jpg") center/cover no-repeat; /* Default untuk HP pakai foto vertikal */
 }
 
-.cover-photo.no-photo{
-  background:
-    radial-gradient(
-      circle at 20% 20%,
-      rgba(199,161,91,.1),
-      transparent 30%
-    ),
-    linear-gradient(
-      145deg,
-      #090909,
-      #181818
-    )
+/* OTOMATIS BERUBAH PAKAI FOTO 16:9 JIKA DIBUKA DI LAPTOP/KOMPUTER */
+@media (min-width: 1024px) {
+  .cover-photo {
+    background-image: linear-gradient(
+                        180deg, 
+                        rgba(0,0,0,.58), 
+                        rgba(0,0,0,.30) 42%, 
+                        rgba(0,0,0,.76)
+                      ), 
+                      url("cover-horizontal.jpg") !important; /* Ganti dengan nama file foto 16:9 Anda */
+  }
 }
 
 .cover-inner{
@@ -148,6 +224,7 @@ button{
     "Great Vibes",
     cursive;
   font-size:clamp(76px,17vw,142px);
+  font-style: italic;
   line-height:.140;
   white-space:nowrap;
   font-weight:400
@@ -157,8 +234,8 @@ button{
   margin-top:38px;
   padding-top:20px;
   width:min(90%,590px);
-  border-top:1px solid #eee;
   font-size:clamp(11px,2.4vw,16px);
+  text-align: center;
   letter-spacing:5.7px
 }
 
@@ -202,50 +279,6 @@ button{
   border-radius:5px;
   letter-spacing:4px;
   font-size:12px
-}
-
-/* =========================
-   EFEK AWAN SETELAH UNDANGAN DIBUKA
-========================= */
-
-.clouds{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  overflow:hidden;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity 1.5s ease;
-}
-
-body.opened .clouds{
-  opacity:1;
-  visibility:visible;
-}
-
-.cloud{
-  position:absolute;
-  width:260px;
-  height:70px;
-  border-radius:100px;
-  background:
-    radial-gradient(
-      circle at 30% 65%,
-      rgba(255,255,255,.08) 0 35px,
-      transparent 36px
-    ),
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(255,255,255,.07) 0 48px,
-      transparent 49px
-    ),
-    radial-gradient(
-      circle at 70% 65%,
-      rgba(255,255,255,.06) 0 35px,
-      transparent 36px
-    );
-  filter:blur(3px);
 }
 
 /* =========================
@@ -388,6 +421,19 @@ flower-petal:nth-child(5){
   }
   }
 
+.bg-foto-tetap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: -999; /* Buat nilainya sangat kecil agar pasti di paling belakang */
+}
   
 /* =========================
    GENERAL
@@ -406,16 +452,18 @@ flower-petal:nth-child(5){
 
 .kicker{
   color:var(--gold2);
-  letter-spacing:5px;
-  text-transform:uppercase;
-  font-size:16px
+  letter-spacing:0px;
+  font-family: MoonTimeLocal,
+    "Moon Time";
+  font-style: bold;
+  font-size:50px
 }
 
 .section-title{
   margin:14px 0 16px;
-  font-family:
-    "Cormorant Garamond",
-    serif;
+  font-family: GreatVibesLocal,
+    "Great Vibes",
+    cursive;
   font-size:clamp(24px,5vw,42px);
   font-weight:500;
   line-height:.95
@@ -426,7 +474,8 @@ flower-petal:nth-child(5){
 }
 
 .small{
-  font-size:12px;
+  text-align:center;
+  font-size:14px;
   line-height:1.8
 }
 
@@ -500,7 +549,7 @@ flower-petal:nth-child(5){
 
 .intro{
   min-height:100svh;
-  display:flex;
+  display:grid;
   align-items:center;
   justify-content:center
 }
@@ -514,7 +563,7 @@ flower-petal:nth-child(5){
   direction:rtl;
   font-family:Georgia,serif;
   color:var(--gold2);
-  font-size:clamp(27px,7vw,48px);
+  font-size:clamp(16px,4vw,28px);
   line-height:1.9;
   margin:34px 0 22px
 }
@@ -523,7 +572,7 @@ flower-petal:nth-child(5){
   font-family:
     "Cormorant Garamond",
     serif;
-  font-size:clamp(13px,2vw,30px);
+  font-size:clamp(12px,2vw,28px);
   line-height:1.25
 }
 
@@ -588,76 +637,202 @@ flower-petal:nth-child(5){
 }
 
 .person-name{
-  font-family:
-    "Cormorant Garamond",
-    serif;
+  font-family: GreatVibesLocal,
+    "Great Vibes",
+    cursive;
+  text-align:center;
   font-size:42px;
   line-height:1;
   margin:24px 0 8px
 }
 
 .parents{
+  text-align:center;
   line-height:1.7;
   color:#d0c9bf
 }
 
 .ig{
-  display:inline-block;
+  display:block;
+  text-align:center;
   color:var(--gold2);
   margin-top:12px;
   font-size:12px
 }
-
 
 /* =========================
    EVENT
 ========================= */
 
 .event-card{
-  border-top:
+  margin:28px 0;
+  padding:30px 18px;
+  border:
     1px solid
-    rgba(199,161,91,.45);
-  border-bottom:
-    1px solid
-    rgba(199,161,91,.45);
-  padding:32px 0;
-  margin:28px 0
+    rgba(255,255,255,.16);
+  border-radius:18px;
 }
 
-.event-card h3{
+/* BARIS UTAMA ACARA */
+
+.event-main{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:12px;
+  width:100%;
+}
+
+.event-side{
+  text-align:center;
+}
+
+.event-side h3{
   font-family:
     "Cormorant Garamond",
     serif;
-  font-size:20px;
-  margin:0 0 10px;
-  font-weight:500
+  font-size:24px;
+  margin:0 0 12px;
+  font-weight:500;
+  color:#fff;
 }
 
 .event-time{
-  font-size:14px;
+  font-size:18px;
+  letter-spacing:1px;
+  color:var(--gold2);
+  font-style: bold;
+}
+
+/* TANGGAL TENGAH */
+
+.event-date{
+  text-align:center;
+  min-width:95px;
+  padding:0 22px;
+  border-left:1px solid rgba(255,255,255,.55);
+  border-right:1px solid rgba(255,255,255,.55);
+}
+
+.event-date .date-number{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+  font-size:68px;
+  line-height:.8;
+  font-weight:600;
+  color:#fff;
+}
+
+.event-date .date-month{
+  margin-top:14px;
+  font-size:20px;
+  font-weight:600;
   letter-spacing:2px;
-  color:var(--gold2)
+  color:#fff;
+}
+
+.event-date .date-year{
+  margin-top:4px;
+  font-family:
+    "Cormorant Garamond",
+    serif;
+  font-size:40px;
+  line-height:1;
+  color:#fff;
+}
+
+/* GARIS PEMISAH */
+
+.event-divider{
+  width:55%;
+  height:1px;
+  margin:30px auto;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(199,161,91,.65),
+      transparent
+    );
+  position:relative;
+}
+
+.event-divider::after{
+  content:"✦";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  padding:0 10px;
+  background:#222;
+  color:#c7a15b;
+  font-size:14px;
+}
+
+/* ALAMAT */
+
+.event-location{
+  text-align:center;
+  margin-top:5px;
+}
+
+.event-location-title{
+  font-size:11px;
+  letter-spacing:2px;
+  color:#aaa;
+  margin-bottom:10px;
+}
+
+.event-location-name{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+  font-size:18px;
+  color:#fff;
+  margin-bottom:8px;
 }
 
 .address{
   line-height:1.8;
   color:#d0c9bf;
   font-size:13px;
-  margin-top:15px
 }
+
+/* GOOGLE MAPS */
 
 .map-btn{
   display:inline-flex;
-  margin-top:12px;
-  padding:11px 18px;
+  align-items:center;
+  justify-content:center;
+  margin-top:16px;
+  padding:10px 14px;
   border:1px solid var(--gold);
   border-radius:30px;
   color:var(--gold2);
-  font-size:12px;
-  letter-spacing:2px
+  font-size:11px;
+  text-decoration: none;
+  letter-spacing:1.5px;
 }
 
+/* =========================
+   GLASSMORPHISM CARD
+========================= */
 
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.18);
+
+  border-radius: 18px;
+}
+
+  
 /* =========================
    COUNTDOWN
 ========================= */
@@ -760,9 +935,12 @@ flower-petal:nth-child(5){
 
 .timeline-year{
   color:#c7a15b;
-  font-size:14px;
-  letter-spacing:3px;
-  text-transform:uppercase;
+  font-family: GreatVibesLocal,
+    "Great Vibes",
+    cursive;
+  font-size:24px;
+  letter-spacing:2px;
+  text-transform:bold;
   margin-bottom:8px
 }
 
@@ -778,7 +956,7 @@ flower-petal:nth-child(5){
 
 .timeline-item p{
   margin:0;
-  color:#aaa49b;
+  color:#fff;
   font-family:
     "Cormorant Garamond",
     serif;
@@ -1108,9 +1286,464 @@ body.opened #floatingUI{
 
 }
 
-</style>
-</head>
+  /* =====================================================
+   BACKGROUND PER HALAMAN - FINAL
+   ===================================================== */
 
+body.opened main > section:not(#cover) {
+  position: relative;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+/* Background setiap section */
+body.opened main > section:not(#cover) > .section-bg {
+  position: sticky;
+  top: 0;
+
+  width: 100%;
+  height: 100svh;
+
+  margin-bottom: -100svh;
+
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Overlay gelap */
+body.opened main > section:not(#cover) > .section-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.50),
+      rgba(0,0,0,.30) 45%,
+      rgba(0,0,0,.70)
+    );
+}
+
+/* Isi section berada di atas background */
+body.opened main > section:not(#cover) > *:not(.section-bg) {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =====================================================
+   HOME
+   ===================================================== */
+
+#home {
+  position: relative;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+#home > .section-bg {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+
+  background:
+    url("foto1.jpg")
+    center center / cover
+    no-repeat;
+
+  z-index: -2;
+}
+
+
+/* =====================================================
+   MEMPELAI
+   ===================================================== */
+
+#couple > .section-bg {
+  background-image: url("foto1.jpg");
+}
+
+
+/* =====================================================
+   ACARA
+   ===================================================== */
+
+#event > .section-bg {
+  background-image: url("foto2.jpg");
+}
+
+
+/* =====================================================
+   STORY
+   ===================================================== */
+
+#story > .section-bg {
+  background-image: url("foto3.jpg");
+}
+
+
+/* =====================================================
+   GALLERY
+   ===================================================== */
+
+#gallery > .section-bg {
+  background-image: url("foto4.jpg");
+}
+
+
+/* =====================================================
+   GIFT
+   ===================================================== */
+
+#gift > .section-bg {
+  background-image: url("foto5.png");
+}
+
+
+/* =====================================================
+   RSVP
+   ===================================================== */
+
+#rsvp > .section-bg {
+  background-image: url("foto6.jpg");
+}
+
+
+/* =====================================================
+   CLOSING / PENUTUP
+   ===================================================== */
+
+#closing > .section-bg {
+  background-image: url("foto4.jpg");
+}
+
+#closing {
+  position: relative;
+  isolation: isolate;
+  overflow: visible !important;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width:600px) {
+
+  body.opened main > section:not(#cover) > .section-bg {
+    height: 100svh;
+  }
+
+  #home > .section-bg {
+    height: 100%;
+  }
+
+}
+
+/* =====================================================
+   EVENT - TAMPILAN AKAD / TANGGAL / RESEPSI
+   KHUSUS SECTION #event
+   ===================================================== */
+
+#event .event-card{
+  margin:28px 0;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  border-radius:0;
+}
+
+/* KOTAK AKAD - TANGGAL - RESEPSI */
+#event .event-info-box{
+  width:100%;
+  padding:20px 10px;
+  border:2px solid rgba(255,255,255,.20);
+  border-radius:14px;
+
+  background:rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.20);
+}
+
+/* BARIS AKAD - TANGGAL - RESEPSI */
+#event .event-main{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  width:100%;
+  gap:0;
+}
+
+/* BAGIAN AKAD & RESEPSI */
+#event .event-side{
+  text-align:center;
+  padding:0 12px;
+}
+
+#event .event-side h3{
+  margin:0 0 12px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:24px;
+  font-weight:500;
+  color:#fff;
+}
+
+#event .event-time{
+  font-size:18px;
+  letter-spacing:1px;
+  color:#fff;
+  font-family:"Cormorant Garamond",serif;
+  font-weight:600;
+}
+
+/* TANGGAL TENGAH */
+#event .event-date{
+  min-width:105px;
+  padding:0 22px;
+
+  text-align:center;
+
+  border-left:2px solid rgba(255,255,255,.55);
+  border-right:2px solid rgba(255,255,255,.55);
+}
+
+#event .event-date .date-number{
+  font-family:"Cormorant Garamond",serif;
+  font-size:68px;
+  line-height:.8;
+  font-weight:600;
+  color:#fff;
+}
+
+#event .event-date .date-month{
+  margin-top:14px;
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:3px;
+  color:#fff;
+}
+
+#event .event-date .date-year{
+  margin-top:4px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:40px;
+  line-height:1;
+  color:#fff;
+}
+
+/* ALAMAT DI LUAR KOTAK */
+#event .event-location{
+  text-align:center;
+  margin-top:45px;
+}
+
+#event .event-location-title{
+  font-family:"Cormorant Garamond",serif;
+  font-size:38px;
+  letter-spacing:4px;
+  color:#fff;
+  margin-bottom:22px;
+}
+
+#event .event-location-name{
+  font-size:13px;
+  letter-spacing:4px;
+  color:#fff;
+  margin-bottom:22px;
+  text-transform:uppercase;
+}
+
+#event .event-location .address{
+  line-height:1.8;
+  color:#fff;
+  font-size:16px;
+  font-weight:500;
+}
+
+/* TEKS LOKASI AKAD & RESEPSI */
+#event .event-location > p{
+  margin-top:18px;
+  margin-bottom:0;
+}
+
+/* TOMBOL GOOGLE MAPS */
+#event .map-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:20px;
+  padding:10px 14px;
+  border:2px solid rgba(255,255,255,.35);
+  border-radius:30px;
+  background:rgba(255,255,255,.92);
+  color:#333;
+  font-size:14px;
+  text-decoration: bold;
+  letter-spacing:1.2px;
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+
+/* COUNTDOWN TETAP DI BAWAH MAPS */
+#event .countdown{
+  margin-top:35px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  #event .event-info-box{
+    padding:28px 10px;
+    border-radius:22px;
+  }
+
+  #event .event-main{
+    grid-template-columns:1fr auto 1fr;
+  }
+
+  #event .event-side{
+    padding:0 5px;
+  }
+
+  #event .event-side h3{
+    font-size:21px;
+    margin-bottom:10px;
+  }
+
+  #event .event-time{
+    font-size:17px;
+  }
+
+  #event .event-date{
+    min-width:90px;
+    padding:0 14px;
+  }
+
+  #event .event-date .date-number{
+    font-size:62px;
+  }
+
+  #event .event-date .date-month{
+    font-size:18px;
+    letter-spacing:2px;
+  }
+
+  #event .event-date .date-year{
+    font-size:34px;
+  }
+
+  #event .event-location{
+    margin-top:42px;
+  }
+
+  #event .event-location-title{
+    font-size:34px;
+  }
+
+  #event .event-location-name{
+    font-size:18px;
+    letter-spacing:3px;
+  }
+
+  #event .event-location .address{
+    font-size:15px;
+  }
+
+}
+
+/* =========================================
+   ANIMASI TULISAN SECTION ACARA
+   HANYA UNTUK SECTION #event
+========================================= */
+
+#event .text-sequential {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+#event .text-sequential.text-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Urutan kemunculan */
+#event .event-date.text-sequential {
+  transition-delay: 0s;
+}
+
+#event .event-side.text-akad {
+  transition-delay: 1.2s;
+}
+
+#event .event-side.text-resepsi {
+  transition-delay: 1.2s;
+}
+  
+/* BUNGA KHUSUS HALAMAN CLOSING */
+#closing .closing-flower{
+  width:170px;
+  margin:0 auto 30px;
+}
+
+#closing .closing-flower img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* ANIMASI KHUSUS KISAH KITA */
+#story .story-reveal{
+  opacity: 0;
+  transform: translateY(60px) !important;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#story .story-reveal.story-show{
+  opacity: 1;
+  transform: translateY(0) !important;
+}
+
+/* PAKSA SEMUA ITEM STORY TETAP SEJAJAR */
+#story .timeline-item{
+  left: 0 !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: left !important;
+  }
+
+  /* --- TRICK SEDERHANA UNTUK SEMUA BACKGROUND HALAMAN --- */
+@media (min-width: 1024px) {
+  /* Memaksa foto bawaan HP bergeser ke tengah agar wajah tidak terpotong ke atas */
+  .section-bg {
+    background-size: cover !important;
+    background-position: center 25% !important; 
+  }
+}
+
+
+</style>
+  
+</head>
 <body class="locked">
   
   <!-- EFEK KELOPAK BUNGA -->
@@ -1138,7 +1771,7 @@ body.opened #floatingUI{
 
   <div
     id="coverPhoto"
-    class="cover-photo no-photo"
+    class="cover-photo"
   ></div>
 
   <div class="cover-inner">
@@ -1201,7 +1834,7 @@ body.opened #floatingUI{
   class="intro"
   id="home"
 >
-
+<div class="section-bg"></div>
   <div class="page center">
 
     <div class="flower float">
@@ -1264,11 +1897,11 @@ body.opened #floatingUI{
 
     </div>
 
-    <div class="withlove">
+    <div class="withlove reveal-zoomout">
       The Wedding Ceremony of
     </div>
     <div
-      class="script"
+      class="script reveal-zoomin"
       style="font-size:52px"
     >
       Ika &amp; Jaka
@@ -1277,18 +1910,17 @@ body.opened #floatingUI{
 
     <div
       style="margin-top:70px"
-      class="kicker"
+      class="section-title reveal-zoomin"
     >
       Assalamu'alaikum warahmatullahi<br>
       wabarakatuh
     </div>
 
-    <div class="arabic">
-      وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ
-      مِنْ أَنْفُسِكُمْ أَزْوَاجًا
+    <div class="arabic reveal-zoomin">
+      وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ
     </div>
 
-    <div class="quote">
+    <div class="quote reveal-zoomout">
       “Dan di antara tanda-tanda kekuasaan-Nya
       ialah Dia menciptakan untukmu pasangan
       hidup dari jenismu sendiri, supaya kamu
@@ -1296,7 +1928,7 @@ body.opened #floatingUI{
     </div>
 
     <div
-      class="small muted"
+      class="small muted reveal-zoomin"
       style="margin-top:18px"
     >
       QS. Ar-Rum: 21
@@ -1306,50 +1938,45 @@ body.opened #floatingUI{
 
 </section>
 
-<div class="wave"></div>
-
 
 <!-- =========================
      MEMPELAI
 ========================= -->
 
 <section id="couple">
-
-<div class="page">
-
-  <div class="center">
-
-    <div class="kicker">
-      Mempelai
-    </div>
-
-    <h2 class="section-title">
-      The Bride &amp; Groom
+  <div class="section-bg"></div> 
+  <div class="center stagger">
+<br>
+    <br>
+    <h2 class="section-title reveal-zoomin">
+       بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ 
     </h2>
-
+    <br>
+  <div class="quote reveal-zoomin">
+      Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, insyaAllah kami akan menyelenggarakan pernikahan : </div>
+    
   </div>
+<br>
+  <br>
 
-  <div class="couple-grid">
+  <div class="couple-grid stagger">
 
 
     <!-- IKA -->
 
     <article class="person">
 
-      <div class="person-photo">
+      <div class="person-photo reveal-right">
+    <img src="ika.jpg" class="reveal-right" alt="Ika Rahmawati">
+</div>
 
-        <img
-          src="ika.jpg"
-          alt="Ika Rahmawati"
-        >
+   </div>
 
+      <div class="person-name reveal-zoomin">
+        Ika Rahmawati, S.E.
       </div>
 
-      <div class="person-name">
-        Ika Rahmawati
-      </div>
-
-      <div class="parents">
+      <div class="parents reveal-zoomin">
 
         Putri dari<br>
 
@@ -1360,41 +1987,42 @@ body.opened #floatingUI{
 
       </div>
 
-      <div class="small">
+      <div class="small reveal-zoomin">
         Ds. Geneng RT. 04 RW. 01<br>
         Kec. Mijen Kab. Demak (Gang 2)
       </div>
 
       <a
-        class="ig"
+        class="ig reveal-zoomin"
         href="https://www.instagram.com/ikarahmawati0303/"
         target="_blank"
         rel="noopener"
       >
         @ikarahmawati0303
       </a>
+  <br>
+<br>
+<div>
+</div>
 
-    </article>
-
-
-    <!-- JAKA -->
+    <div class="kicker reveal-zoomout center">dengan</div>
+  <br>
+   <br>
+  
+  <!-- JAKA -->
 
     <article class="person">
 
-      <div class="person-photo">
-
-        <img
-          src="jaka.jpg"
-          alt="Jaka Prakasa"
-        >
+    <div class="person-photo reveal-left">
+    <img src="jaka.jpg" class="reveal-left" alt="Jaka Prakasa">
 
       </div>
 
-      <div class="person-name">
-        Jaka Prakasa
+      <div class="person-name reveal-zoomin">
+        Jaka Prakasa, S.M.
       </div>
 
-      <div class="parents">
+      <div class="parents reveal-zoomin">
 
         Putra dari<br>
 
@@ -1405,13 +2033,13 @@ body.opened #floatingUI{
 
       </div>
 
-      <div class="small">
+      <div class="small reveal-zoomin">
         Ds. Geneng RT. 05 RW. 02<br>
         Kec. Mijen Kab. Demak (Gang 4)
       </div>
 
       <a
-        class="ig"
+        class="ig reveal-zoomin"
         href="https://www.instagram.com/jakak.prks/"
         target="_blank"
         rel="noopener"
@@ -1421,144 +2049,84 @@ body.opened #floatingUI{
 
     </article>
 
-  </div>
-
-</div>
+<br>
 
 </section>
+  
 <!-- =========================
      ACARA
 ========================= -->
 
 <section id="event">
 
-  <div class="page">
+  <div class="section-bg"></div>
 
-    <div class="center">
+  <div class="page center stagger">
 
-      <div class="kicker">
-        Save The Date
-      </div>
-
-      <h2 class="section-title">
-        Waktu &amp; Tempat
-      </h2>
-
-      <div class="divider"></div>
-
-      <p class="muted small">
-        Dengan memohon rahmat dan ridho Allah SWT,
-        kami bermaksud menyelenggarakan acara
-        pernikahan kami.
-      </p>
-
+    <div class="kicker">
+      Save The Date
     </div>
 
+    <div class="divider"></div>
 
-    <!-- AKAD -->
-
-    <div class="event-card center">
-
-      <h3>
-        Akad Nikah
-      </h3>
-
-      <div class="event-time">
-        RABU, 23 SEPTEMBER 2026<br>
-        08.00 WIB
-      </div>
-
-      <div class="address">
-
-        Kediaman Mempelai Wanita<br>
-
-        Ds. Geneng RT. 04 RW. 01<br>
-        Kec. Mijen Kab. Demak (Gang 2)
-
-      </div>
-
-    </div>
+    <p class="muted small">
+      Kami akan menikah, dan kami ingin Anda menjadi bagian
+      dari hari istimewa kami
+    </p>
 
 
-    <!-- RESEPSI -->
+    <!-- =========================
+         INFO ACARA
+    ========================= -->
 
-    <div class="event-card center">
+       <div class="event-card">
 
-      <h3>
-        Resepsi
-      </h3>
+  <!-- KOTAK AKAD - TANGGAL - RESEPSI -->
+  <div class="event-info-box">
 
-      <div class="event-time">
-        RABU, 23 SEPTEMBER 2026<br>
-        12.00 WIB
-      </div>
+    <div class="event-main">
 
-      <div class="address">
+      <!-- AKAD -->
+      <div class="event-side text-sequential text-akad">
 
-        Kediaman Mempelai Wanita<br>
+        <h3>
+          Akad
+        </h3>
 
-        Ds. Geneng RT. 04 RW. 01<br>
-        Kec. Mijen Kab. Demak (Gang 2)
-
-      </div>
-
-    </div>
-
-
-    <!-- SATU MAPS UNTUK AKAD + RESEPSI -->
-
-    <div class="center">
-
-      <p class="small muted">
-        Lokasi Akad &amp; Resepsi
-      </p>
-
-      <a
-        class="map-btn"
-        href="https://maps.app.goo.gl/u3DHECb2cSUvqKep6"
-        target="_blank"
-        rel="noopener"
-      >
-        📍 BUKA GOOGLE MAPS
-      </a>
-
-    </div>
-
-
-    <!-- COUNTDOWN -->
-
-    <div
-      class="center"
-      style="margin-top:70px"
-    >
-
-      <div class="kicker">
-        Menuju Hari Bahagia
-      </div>
-
-      <div
-        id="countdown"
-        class="countdown"
-      >
-
-        <div class="cd">
-          <strong>00</strong>
-          <span>Hari</span>
+        <div class="event-time">
+          08.00 WIB
         </div>
 
-        <div class="cd">
-          <strong>00</strong>
-          <span>Jam</span>
+      </div>
+
+
+      <!-- TANGGAL -->
+      <div class="event-date text-sequential">
+
+        <div class="date-number">
+          23
         </div>
 
-        <div class="cd">
-          <strong>00</strong>
-          <span>Menit</span>
+        <div class="date-month">
+          SEPT
         </div>
 
-        <div class="cd">
-          <strong>00</strong>
-          <span>Detik</span>
+        <div class="date-year">
+          2026
+        </div>
+
+      </div>
+
+
+      <!-- RESEPSI -->
+      <div class="event-side text-sequential text-resepsi">
+
+        <h3>
+          Resepsi
+        </h3>
+
+        <div class="event-time">
+          12.00 WIB
         </div>
 
       </div>
@@ -1566,6 +2134,72 @@ body.opened #floatingUI{
     </div>
 
   </div>
+
+
+  <!-- ALAMAT -->
+  <div class="event-location">
+<br>
+    <div class="event-location-name">
+      LOKASI AKAD &amp; RESEPSI
+    </div>
+    <div class="address">
+      Ds. Geneng RT. 04 RW. 01<br>
+      Kec. Mijen Kab. Demak (Gang 2)
+    </div>
+
+    <p class="small muted reveal-left">
+      Kediaman Mempelai Wanita
+    </p>
+
+    <!-- GOOGLE MAPS -->
+    <a
+      class="map-btn reveal-zoomout"
+      href="https://maps.app.goo.gl/u3DHECb2cSUvqKep6"
+      target="_blank"
+      rel="noopener"
+    >
+      📍 Google Maps
+    </a>
+
+  </div>
+
+
+  <!-- COUNTDOWN -->
+  <div class="kicker reveal-zoomin"
+       style="margin-top:35px;">
+    Menuju Hari Bahagia
+  </div>
+
+  <div
+    id="countdown"
+    class="countdown"
+  >
+
+    <div class="cd reveal-left">
+      <strong>00</strong>
+      <span>Hari</span>
+    </div>
+
+    <div class="cd reveal-zoomin">
+      <strong>00</strong>
+      <span>Jam</span>
+    </div>
+
+    <div class="cd reveal-zoomout">
+      <strong>00</strong>
+      <span>Menit</span>
+    </div>
+
+    <div class="cd reveal-right">
+      <strong>00</strong>
+      <span>Detik</span>
+    </div>
+
+  </div>
+
+</div>
+
+      </div>
 
 </section>
 
@@ -1575,18 +2209,15 @@ body.opened #floatingUI{
 ========================= -->
 
 <section id="story">
+  <div class="section-bg"></div>
 
-  <div class="page">
+  <div class="page stagger">
 
     <div class="center">
 
       <div class="kicker">
-        Our Story
+        Love Story
       </div>
-
-      <h2 class="section-title">
-        Kisah Kita
-      </h2>
 
       <div class="divider"></div>
 
@@ -1599,138 +2230,98 @@ body.opened #floatingUI{
 
     </div>
 
-
+<div class="event-card right glass-card">
     <div class="timeline">
-
 
       <!-- PERKENALAN -->
 
-      <div class="timeline-item">
+        <div class="timeline-item story-reveal">
 
         <div class="timeline-dot"></div>
 
         <div class="timeline-year">
-          Perkenalan
-        </div>
-
-        <h3>
-          Pertemuan Kembali
-        </h3>
-        <div class="timeline-year">
-          Akhir Tahun 2023
+          Awal Pertemuan
         </div>
         
         <p>
-        Pada waktu itu menjadi perkenalan dan pertemuan kita kembali setelah sekian lama tidak bertemu dan terakhir bertemu ketika sekolah madrasah. Dari sebuah pengenalan kembali yang secara sederhana, kami mulai pendekatan dengan berbagai cerita / nostalgia masa kecil sekolah madrasah dulu.
+        Pertemanan sederhana dari duduk dibangku madrasah yang awalnya hanya berstatus teman biasa, tanpa menyangka apa yang bakal terjadi diantara kita berdua.
         </p>
 
       </div>
 
+      
+  <!-- PENDEKATAN -->
 
-      <!-- MENJALIN HUBUNGAN -->
-
-      <div class="timeline-item">
+      <div class="timeline-item story-reveal">
 
         <div class="timeline-dot"></div>
 
         <div class="timeline-year">
-          Menjalin Hubungan
-        </div>
-
-        <h3>
-          Menjadi Lebih Dekat
-        </h3>
-        <div class="timeline-year">
-          Maret 2024
-        </div>
+          Pendekatan </div>
         
         <p>
-          Di sekitar waktu itu hubungan
-          kami semakin dekat. Kami bersama-sama membangun komitmen, belajar untuk
-          saling memahami, mendukung, dan tumbuh
-          bersama dalam setiap keadaan.
+          Tidak ada yang terjadi secara kebetulan didunia ini. Semua sudah diatur dengan sangat indah oleh Allah SWT. Siapa sangka setelah bertahun tahun tidak komunikasi dan berawal dari direct message Instagram pada awal tahun 2024 membuat kami lebih dekat dan membawa kami sampai titik sejauh ini.
         </p>
-
       </div>
-
+      
 
       <!-- PERTUNANGAN -->
 
-      <div class="timeline-item">
+      <div class="timeline-item story-reveal">
 
         <div class="timeline-dot"></div>
 
         <div class="timeline-year">
-          Pertunangan
-        </div>
-
-        <h3>
-          Satu Langkah Lebih Dekat
-        </h3>
-        <div class="timeline-year">
-          21 September 2025
-        </div>
+          Pertunangan</div>
         
         <p>
-          Dengan penuh keyakinan dan restu dari kedua keluarga, kami memutuskan untuk
-          melangkah ke tahap berikutnya dan
-          mengikat janji untuk terus bersama.
+          Perjalanan kami bukan tanpa ujian dan cerita. Namun setiap proses yang dilewati membuat kita semakin yakin untuk memilih satu sama lain. Sampai pada akhirnya pada 21 September 2025 kami dipertemukan dalam sebuah ikatan yang penuh do'a dan restu keluarga.
         </p>
 
       </div>
-
+    
 
       <!-- PERNIKAHAN -->
 
-      <div class="timeline-item">
+      <div class="timeline-item story-reveal">
 
         <div class="timeline-dot"></div>
 
-        <div class="timeline-year">
+        <div class="timeline-year greatvibes">
           Pernikahan
-        </div>
-
-        <h3>
-          Menuju Babak Baru
-        </h3>
-        <div class="timeline-year">
-          23 September 2026
         </div>
         
         <p>
-          Di hari bahagia dan istimewa ini menjadi awal perjalanan baru bagi kami. Dengan mengucap Bismillah, kami memulai kehidupan sebagai suami dan istri.
+          Kami percaya, bukan karena bertemu lalu berjodoh. Tapi karena berjodohlah, maka Allah mempertemukan kami dengan cara terbaikNya. Hingga akhirnya dengan penuh rasa syukur pada tanggal 23 september 2026 kami memutuskan untuk mengikrarkan janji suci pernikahan.
         </p>
 
-      </div>
+      </>
 
     </div>
 
   </div>
 
 </section>
-
+  
 
 <!-- =========================
      GALERI
 ========================= -->
 
 <section id="gallery">
+  <div class="section-bg"></div>
 
-  <div class="page">
+  <div class="page stagger">
 
     <div class="center">
 
-      <div class="kicker">
-        Our Memories
+      <div class="kicker reveal-zoomin">
+        Gallery Prewedding
       </div>
-
-      <h2 class="section-title">
-        Galeri
-      </h2>
 
       <div class="divider"></div>
 
-      <p class="small muted">
+      <p class="small muted reveal-left">
         Beberapa kenangan perjalanan kami.
         Geser ke kanan atau kiri untuk melihat
         foto lainnya.
@@ -1739,8 +2330,7 @@ body.opened #floatingUI{
     </div>
 
 
-    <div
-      class="gallery"
+    <div class="gallery stagger"
       style="margin-top:30px"
     >
 
@@ -1782,7 +2372,7 @@ body.opened #floatingUI{
     </div>
 
 
-    <div class="gallery-hint">
+    <div class="gallery-hint stagger">
       ← GESER UNTUK MELIHAT →
     </div>
 
@@ -1796,18 +2386,15 @@ body.opened #floatingUI{
 ========================= -->
 
 <section id="gift">
+<div class="section-bg"></div>
 
-  <div class="page">
+  <div class="page stagger">
 
     <div class="center">
 
       <div class="kicker">
         Wedding Gift
       </div>
-
-      <h2 class="section-title">
-        Tanda Kasih
-      </h2>
 
       <div class="divider"></div>
 
@@ -1823,10 +2410,10 @@ body.opened #floatingUI{
 
     <!-- REKENING IKA -->
 
-    <div class="gift-card">
+    <div class="gift-card stagger">
 
       <div class="bank">
-        BANK BRI
+        BANK BNI
       </div>
 
       <div class="account-name">
@@ -1837,7 +2424,7 @@ body.opened #floatingUI{
         class="account-number"
         id="rekeningIka"
       >
-        000000000000000
+        836966122
       </div>
 
       <button
@@ -1858,7 +2445,7 @@ body.opened #floatingUI{
 
     <!-- REKENING JAKA -->
 
-    <div class="gift-card">
+    <div class="gift-card reveal-zoomin">
 
       <div class="bank">
         BANK BRI
@@ -1894,7 +2481,7 @@ body.opened #floatingUI{
     <!-- KADO FISIK -->
 
     <div
-      class="gift-card"
+      class="gift-card reveal-zoomout"
       style="margin-top:28px"
     >
 
@@ -1915,9 +2502,8 @@ body.opened #floatingUI{
         id="giftAddress"
         class="address"
       >
-        Ika / Jaka,<br>
-        Ds. Geneng RT. 04 RW. 01<br>
-        Kec. Mijen Kab. Demak (Gang 4)
+        Desa Geneng RT. 04 RW. 01<br>
+        Kec. Mijen Kab. Demak (Gang 2)
       </div>
 
       <button
@@ -1945,8 +2531,9 @@ body.opened #floatingUI{
 ========================= -->
 
 <section id="rsvp">
+  <div class="section-bg"></div>
 
-  <div class="page">
+  <div class="page stagger">
 
     <div class="center">
 
@@ -2141,12 +2728,12 @@ body.opened #floatingUI{
 
       <div class="center">
 
-        <div class="kicker">
+        <div class="kicker stagger">
           Doa &amp; Ucapan
         </div>
 
         <h3
-          class="section-title"
+          class="section-title reveal-zoomin"
           style="font-size:30px"
         >
           Ucapan Para Tamu
@@ -2157,9 +2744,9 @@ body.opened #floatingUI{
 
       <div id="messages">
 
-        <div class="message center">
+        <div class="message center reveal-zoomin">
 
-          <p class="small muted">
+          <p class="small muted stagger">
             Ucapan yang masuk akan ditampilkan
             di sini.
           </p>
@@ -2184,51 +2771,19 @@ body.opened #floatingUI{
   class="closing"
 >
 
-  <div class="page center">
+  <div class="page center stagger">
 
-    <div class="flower float">
-
-      <svg viewBox="0 0 150 180">
-
-        <path
-          class="stem"
-          d="M75 160 C73 125 72 86 60 38"
-        />
-
-        <path
-          class="stem"
-          d="M75 160 C78 121 87 79 112 34"
-        />
-
-        <ellipse
-          class="leaf"
-          cx="60"
-          cy="28"
-          rx="8"
-          ry="18"
-          transform="rotate(-18 60 28)"
-        />
-
-        <ellipse
-          class="leaf"
-          cx="113"
-          cy="25"
-          rx="8"
-          ry="18"
-          transform="rotate(28 113 25)"
-        />
-
-      </svg>
-
-    </div>
+    <div class="closing-flower float">
+  <img src="tulip.png" alt="Bunga">
+</div>
 
 
-    <div class="kicker">
+    <div class="kicker reveal-right">
       Terima Kasih
     </div>
 
     <p
-      class="quote"
+      class="quote stagger"
       style="margin-top:20px"
     >
       Merupakan suatu kebahagiaan dan kehormatan
@@ -2237,29 +2792,24 @@ body.opened #floatingUI{
       kepada kami.
     </p>
 
-
+    <div class="withlove reveal-zoomout">
+      with love
+    </div>
+    <br>
+    <br>
+    
     <div
-      class="script"
-      style="
-        margin-top:60px
-      "
+      class="script reveal-zoomin"
+      style="font-size:52px"
     >
       Ika &amp; Jaka
     </div>
 
-    <div class="withlove">
-      with love
-    </div>
-
-
     <div
-      class="small muted"
-      style="
-        margin-top:70px;
-        line-height:1.8
-      "
+      style="margin-top:70px"
+      class="section-title reveal-zoomin"
     >
-      Wassalamu'alaikum warahmatullahi
+      Wassalamu'alaikum warahmatullahi<br>
       wabarakatuh
     </div>
 
@@ -2327,14 +2877,14 @@ body.opened #floatingUI{
       href="#gift"
       aria-label="Gift"
     >
-      ♧
+      ✉
     </a>
 
     <a
       href="#rsvp"
       aria-label="RSVP"
     >
-      ✉
+      ☑
     </a>
 
   </nav>
@@ -2354,13 +2904,105 @@ body.opened #floatingUI{
 ></audio>
 
 
+
+  
 <!-- =========================
      JAVASCRIPT
 ========================= -->
 
 <script>
 
-const WEDDING_DATE =
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+document
+  .querySelectorAll(".reveal-left, .reveal-right, .reveal-zoomin, .reveal-zoomout, .stagger")
+  .forEach((element) => {
+    revealObserver.observe(element);
+  });
+
+  /* =========================================
+   ANIMASI TULISAN SECTION ACARA
+   TANGGAL → AKAD → RESEPSI
+   KHUSUS #event
+========================================= */
+
+const eventTextObserver = new IntersectionObserver(
+  (entries, observer) => {
+
+    entries.forEach((entry) => {
+
+      if (entry.isIntersecting) {
+
+        const eventSection = entry.target;
+
+        const dateText =
+          eventSection.querySelector(".event-date.text-sequential");
+
+        const akadText =
+          eventSection.querySelector(".event-side.text-akad");
+
+        const resepsiText =
+          eventSection.querySelector(".event-side.text-resepsi");
+
+
+        /* TANGGAL muncul terlebih dahulu */
+        if (dateText) {
+          setTimeout(() => {
+            dateText.classList.add("text-show");
+          }, 0);
+        }
+
+
+        /* AKAD menyusul */
+        if (akadText) {
+          setTimeout(() => {
+            akadText.classList.add("text-show");
+          }, 800);
+        }
+
+
+        /* RESEPSI terakhir */
+        if (resepsiText) {
+          setTimeout(() => {
+            resepsiText.classList.add("text-show");
+          }, 1600);
+        }
+
+
+        /* Jalankan hanya sekali */
+        observer.unobserve(eventSection);
+      }
+
+    });
+
+  },
+  {
+    threshold: 0.25
+  }
+);
+
+
+/* Amati HANYA section acara */
+const eventSection =
+  document.getElementById("event");
+
+if (eventSection) {
+  eventTextObserver.observe(eventSection);
+}
+  
+  const WEDDING_DATE =
   new Date(
     "2026-09-23T08:00:00+07:00"
   ).getTime();
@@ -2722,7 +3364,7 @@ async function copyText(
 async function copyAddress(){
 
   const value =
-    "Ika / Jaka, Ds. Geneng RT. 04 RW. 01, Kec. Mijen Kab. Demak (Gang 4)";
+    "Desa Geneng RT. 04 RW. 01, Kec. Mijen Kab. Demak (Gang 2)";
 
 
   try{
@@ -3279,7 +3921,36 @@ sections.forEach(
     )
   );
 
-</script>
+  
+/* KHUSUS ANIMASI KISAH KITA */
+document.addEventListener("DOMContentLoaded", function () {
 
+  const storyRevealItems = document.querySelectorAll(
+    "#story .story-reveal"
+  );
+
+  const storyRevealObserver = new IntersectionObserver(function(entries) {
+
+    entries.forEach(function(entry) {
+
+      if (entry.isIntersecting) {
+        entry.target.classList.add("story-show");
+        storyRevealObserver.unobserve(entry.target);
+      }
+
+    });
+
+  }, {
+    threshold: 0.25
+  });
+
+  storyRevealItems.forEach(function(item) {
+    storyRevealObserver.observe(item);
+  });
+
+});
+  
+</script>
+        
 </body>
 </html>
